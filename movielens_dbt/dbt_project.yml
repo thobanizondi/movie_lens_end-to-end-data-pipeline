@@ -1,0 +1,36 @@
+name: 'movielens_dbt'
+version: '1.0.0'
+profile: 'movielens_dbt'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  movielens_dbt:
+    staging:
+      +schema: staging
+      +materialized: table
+    dim:
+      +schema: dim
+      +materialized: table
+    fact:
+      +schema: fact
+      +materialized: table
+    mart:
+      +schema: MART
+      +materialized: table
+
+seeds:
+  movielens_dbt:
+    +schema: RAW
+    +column_types:
+      movie_id: NUMBER
+      release_date: DATE

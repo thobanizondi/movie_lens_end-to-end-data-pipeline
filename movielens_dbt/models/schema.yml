@@ -1,0 +1,92 @@
+version: 2
+
+models:
+  - name: dim_movies
+    description: "Dimension table containing movie information."
+    columns:
+      - name: movie_id
+        description: "Primary key for each movie."
+        tests:
+          - not_null
+          - unique
+      - name: movie_title
+        description: "Title of the movie."
+        tests:
+          - not_null
+
+  - name: dim_genome_tags
+    description: "Dimension table of genome tag labels."
+    columns:
+      - name: tag_id
+        description: "Primary key for each tag."
+        tests:
+          - not_null
+          - unique
+      - name: tag
+        description: "Tag label name."
+        tests:
+          - not_null
+
+  - name: dim_users
+    description: "Dimension table of users."
+    columns:
+      - name: user_id
+        description: "Primary key for each user."
+        tests:
+          - not_null
+          - unique
+
+  - name: fact_ratings
+    description: "Fact table of user movie ratings."
+    columns:
+      - name: rating_id
+        description: "Surrogate primary key."
+        tests:
+          - not_null
+          - unique
+      - name: user_id
+        description: "Foreign key to dim_users."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_users')
+              field: user_id
+      - name: movie_id
+        description: "Foreign key to dim_movies."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_movies')
+              field: movie_id
+      - name: rating
+        description: "Rating value between 0.5 and 5.0."
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 6.0]
+      - name: rating_timestamp
+        description: "Timestamp when the rating was made."
+        tests:
+          - not_null
+
+  - name: fact_genome_scores
+    description: "Fact table of relevance scores per movie and tag."
+    columns:
+      - name: movie_id
+        description: "Foreign key to dim_movies."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_movies')
+              field: movie_id
+      - name: tag_id
+        description: "Foreign key to dim_genome_tags."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_genome_tags')
+              field: tag_id
+      - name: relevance
+        description: "Relevance score between 0 and 1."
+        tests:
+          - not_null
