@@ -2,7 +2,7 @@
 AWS S3 - Snowflake - dbt pipeline | MovieLens dataset | Medallion Architecture | SCD Type 2 | dbt tests
 # 🎬 MovieLens End-to-End Data Pipeline
 
-> A production-grade data engineering pipeline ingesting MovieLens data from **AWS S3** into **Snowflake**, transformed with **dbt** using Medallion Architecture — featuring incremental models, SCD Type 2 snapshots, and automated data quality testing.
+> A production-grade data engineering pipeline ingesting MovieLens data from **AWS S3** into **Snowflake**, transformed with **dbt** using Medallion Architecture featuring incremental models, SCD Type 2 snapshots, and automated data quality testing.
 
 ![dbt](https://img.shields.io/badge/dbt-1.11.11-orange?logo=dbt)
 ![Snowflake](https://img.shields.io/badge/Snowflake-Cloud-29B5E8?logo=snowflake)
